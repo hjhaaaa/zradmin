@@ -1,7 +1,7 @@
 {
   "name": "zr.admin",
   "version": "v20240105",
-  "description": "ZRAdmin.NET管理系统",
+  "description": "ZRAdmin.NET management system",
   "author": "ZR",
   "license": "MIT",
   "type": "module",

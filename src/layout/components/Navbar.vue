@@ -9,14 +9,14 @@
 
     <div class="right-menu">
       <header-search class="right-menu-item" />
-      <Notice title="通知" class="right-menu-item" />
+      <Notice title="Notice" class="right-menu-item" />
       <template v-if="appStore.device == 'desktop'">
-        <zr-git title="源码地址" class="right-menu-item" />
-        <zr-doc title="文档地址" class="right-menu-item" />
-        <screenfull title="全屏" class="right-menu-item" />
+        <!-- <zr-git title="" class="right-menu-item" /> -->
+        <!-- <zr-doc title="" class="right-menu-item" /> -->
+        <!-- <screenfull title="全屏" class="right-menu-item" /> -->
       </template>
       <size-select title="布局大小" class="right-menu-item" />
-      <LangSelect title="语言设置" class="right-menu-item" />
+     <!--  <LangSelect title="语言设置" class="right-menu-item" /> -->
 
       <div class="right-menu-item">
         <el-dropdown @command="handleCommand" trigger="click" style="vertical-align: middle">
@@ -34,10 +34,10 @@
                 <span>{{ $t('layout.layoutSetting') }}</span>
               </el-dropdown-item> -->
               <el-dropdown-item command="copyToken" v-if="dev">
-                <span>复制token</span>
+                <span>copyToken</span>
               </el-dropdown-item>
               <el-dropdown-item command="clear">
-                <span>清空缓存</span>
+                <span>clear</span>
               </el-dropdown-item>
               <el-dropdown-item divided command="logout">
                 <span>{{ $t('layout.logOut') }}</span>
@@ -104,17 +104,17 @@ function handleCommand(command) {
 const copyText = async (val) => {
   try {
     await toClipboard(val)
-    proxy.$modal.msgSuccess('复制成功！')
+    proxy.$modal.msgSuccess('Ok!')
   } catch (e) {
     console.log(e)
-    proxy.$modal.msgError('当前浏览器不支持')
+    proxy.$modal.msgError('Not Support')
   }
 }
 function logout() {
   proxy
     .$confirm(proxy.$t('layout.logOutConfirm'), proxy.$t('common.tips'), {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+      confirmButtonText: 'Sure',
+      cancelButtonText: 'Cancel',
       type: 'warning'
     })
     .then(() => {

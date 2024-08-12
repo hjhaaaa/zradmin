@@ -155,7 +155,7 @@
                 v-if="scope.row.userId !== 1"
                 text
                 icon="Key"
-                title="重置密码"
+                title="reset password"
                 @click="handleResetPwd(scope.row)"
                 v-hasPermi="['system:user:resetPwd']"></el-button>
             </template>
@@ -165,72 +165,72 @@
       </el-col>
     </el-row>
 
-    <!-- 添加或修改用户配置对话框 -->
-    <el-dialog :title="title" v-model="open" width="600px" append-to-body>
-      <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
+    
+    <el-dialog :title="title" v-model="open" width="800px" append-to-body>
+      <el-form :model="form" :rules="rules" ref="userRef" label-width="120px">
         <el-row :gutter="20">
           <el-col :lg="12">
-            <el-form-item label="用户名" prop="userName">
-              <el-input :disabled="form.userId != undefined" v-model="form.userName" placeholder="请输入用户名(用于登陆)" />
+            <el-form-item label="Username" prop="userName">
+              <el-input :disabled="form.userId != undefined" v-model="form.userName" placeholder="" />
             </el-form-item>
           </el-col>
           <el-col :lg="12" v-if="form.userId == undefined">
-            <el-form-item label="用户密码" prop="password">
-              <el-input v-model="form.password" show-password placeholder="请输入用户密码" type="password" />
+            <el-form-item label="Password" prop="password">
+              <el-input v-model="form.password" show-password placeholder="" type="password" />
             </el-form-item>
           </el-col>
           <el-col :lg="12">
-            <el-form-item label="用户昵称" prop="nickName">
-              <el-input v-model="form.nickName" placeholder="请输入用户昵称" />
+            <el-form-item label="Nickname" prop="nickName">
+              <el-input v-model="form.nickName" placeholder="" />
             </el-form-item>
           </el-col>
           <el-col :lg="12">
-            <el-form-item label="归属部门" prop="deptId">
+            <el-form-item label="Dept" prop="deptId">
               <el-tree-select
                 v-model="form.deptId"
                 :data="deptOptions"
                 :props="{ value: 'id', label: 'label', children: 'children' }"
                 value-key="id"
-                placeholder="请选择归属部门"
+                placeholder=""
                 check-strictly
                 :render-after-expand="false" />
             </el-form-item>
           </el-col>
           <el-col :lg="12">
-            <el-form-item label="手机号码" prop="phonenumber">
-              <el-input v-model="form.phonenumber" placeholder="请输入手机号码" maxlength="11" />
+            <el-form-item label="Phonenumber" prop="phonenumber">
+              <el-input v-model="form.phonenumber" placeholder="" maxlength="11" />
             </el-form-item>
           </el-col>
           <el-col :lg="12">
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="form.email" placeholder="请输入邮箱" maxlength="50" />
+            <el-form-item label="Email" prop="email">
+              <el-input v-model="form.email" placeholder="" maxlength="50" />
             </el-form-item>
           </el-col>
           <el-col :lg="12">
-            <el-form-item label="用户性别">
-              <el-radio-group v-model="form.sex" placeholder="请选择用户性别">
+            <el-form-item label="Gender">
+              <el-radio-group v-model="form.sex" placeholder="">
                 <el-radio v-for="dict in sexOptions" :key="dict.dictValue" :value="parseInt(dict.dictValue)">{{ dict.dictLabel }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :lg="12">
-            <el-form-item label="用户状态">
+            <el-form-item label="Status">
               <el-radio-group v-model="form.status">
                 <el-radio v-for="dict in statusOptions" :key="dict.dictValue" :value="parseInt(dict.dictValue)">{{ dict.dictLabel }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :lg="24">
-            <el-form-item label="岗位">
-              <el-select v-model="form.postIds" multiple placeholder="请选择岗位" style="width: 100%">
+            <el-form-item label="Post">
+              <el-select v-model="form.postIds" multiple placeholder="" style="width: 100%">
                 <el-option v-for="item in postOptions" :key="item.postId" :label="item.postName" :value="item.postId" :disabled="item.status == 1">
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :lg="24">
-            <el-form-item label="角色">
-              <el-select v-model="form.roleIds" multiple placeholder="请选择角色" style="width: 100%" @change="selectRole($event)">
+            <el-form-item label="Role">
+              <el-select v-model="form.roleIds" multiple placeholder="" style="width: 100%" @change="selectRole($event)">
                 <el-option
                   v-for="item in roleOptions"
                   :key="item.roleId"
@@ -244,8 +244,8 @@
             </el-form-item>
           </el-col>
           <el-col :lg="24">
-            <el-form-item label="备注">
-              <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
+            <el-form-item label="Remark">
+              <el-input v-model="form.remark" type="textarea" placeholder=""></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -256,7 +256,7 @@
       </template>
     </el-dialog>
 
-    <!-- 用户导入对话框 -->
+   
     <el-dialog :title="upload.title" v-model="upload.open" width="400px" append-to-body>
       <el-upload
         name="file"
@@ -322,22 +322,22 @@ const deptOptions = ref([])
 const initPassword = ref(undefined)
 const postOptions = ref([])
 const roleOptions = ref([])
-/*** 用户导入参数 */
+
 const upload = reactive({
-  // 是否显示弹出层（用户导入）
+
   open: false,
-  // 弹出层标题（用户导入）
+
   title: '',
-  // 是否禁用上传
+
   isUploading: false,
-  // 是否更新已经存在的用户数据
+
   updateSupport: 0,
-  // 设置上传的请求头部
+
   headers: { Authorization: 'Bearer ' + getToken() },
-  // 上传的地址
+
   url: import.meta.env.VITE_APP_BASE_API + '/system/user/importData'
 })
-// 列显隐信息
+
 const columns = ref([
   { key: 0, label: `用户编号`, visible: true, prop: 'userId' },
   { key: 1, label: `用户名称`, visible: true, prop: 'userName' },
@@ -514,7 +514,7 @@ function handleSelectionChange(selection) {
 }
 
 function handleImport() {
-  upload.title = '用户导入'
+  upload.title = 'User Import'
   upload.open = true
 }
 
@@ -531,7 +531,7 @@ const handleFileSuccess = (response, file, fileList) => {
   upload.open = false
   upload.isUploading = false
   proxy.$refs['uploadRef'].clearFiles()
-  proxy.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + data.item1 + '</div>', '导入结果', {
+  proxy.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + data.item1 + '</div>', 'Result', {
     dangerouslyUseHTMLString: true
   })
   getList()
@@ -580,7 +580,7 @@ function handleAdd() {
     postOptions.value = response.data.posts
     roleOptions.value = response.data.roles
     open.value = true
-    title.value = '添加用户'
+    title.value = 'Add '
     form.value.password = initPassword.value
   })
 }
@@ -609,7 +609,7 @@ function handleUpdate(row) {
     roleOptions.value = response.data.roles
     postOptions.value = response.data.posts
     open.value = true
-    title.value = '修改用户'
+    title.value = 'Edit'
     form.password = ''
   })
 }
@@ -619,13 +619,13 @@ function submitForm() {
     if (valid) {
       if (form.value.userId != undefined) {
         updateUser(form.value).then((response) => {
-          proxy.$modal.msgSuccess('修改成功')
+          proxy.$modal.msgSuccess('Edit success')
           open.value = false
           getList()
         })
       } else {
         addUser(form.value).then((response) => {
-          proxy.$modal.msgSuccess('新增成功')
+          proxy.$modal.msgSuccess('Add success')
           open.value = false
           getList()
         })
