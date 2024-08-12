@@ -40,7 +40,7 @@ git clone https://gitee.com/izory/ZRAdmin-vue.git
 cd ZRAdmin-vue
 
 # 安装依赖
-yarn --registry=https://registry.npm.taobao.org
+yarn  --registry=https://registry.npm.taobao.org
 
 # 启动服务
 yarn dev
